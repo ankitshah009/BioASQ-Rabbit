@@ -4,7 +4,7 @@ if [ "$RABBIT_HOST" = "" ] ; then
 	RABBIT_HOST=172.17.0.2
 fi
 
-for dir in Expander Splitter Ranker Tiler Results; do
+for dir in Splitter Expander Ranker Tiler Results; do
 	echo "Starting $dir"
 	cd $dir
 	### convert to lower case since repo names are not allowed to be upppercase
