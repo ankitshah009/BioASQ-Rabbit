@@ -11,7 +11,7 @@ from deiis.rabbit import Task, Message
 from deiis.model import Question, Serializer
 
 from nltk.tokenize import sent_tokenize, word_tokenize
-
+import pdb
 import logging
 from logging import config
 logging.config.fileConfig('logging.ini')
@@ -53,20 +53,23 @@ class BiRanker(Task):
     @abstractmethod
     def getRankedList(self, question):
         pass
-
+    #### Return tokens instead of the sentences
     def getSentences(self, question):
         self.logger.debug('Getting sentences for question %s', question.id)
         sentences = []
         # snippetsText = []
         for snippet in question.snippets: #['snippets']:
-            text = unicode(snippet.text).encode("ascii", "ignore")
-            # snippetsText.append(text)
-            if text == "":
-                continue
-            try:
-                sentences += sent_tokenize(text)
-            except:
-                sentences += text.split(". ")  # Notice the space after the dot
+            print snippet.sentences
+            for sent in snippet.sentences:
+                #tokens = unicode(sent.tokens).encode("ascii", "ignore")
+            ## snippetsText.append(text)
+            #if text == "":
+            #    continue
+            #try:
+            #    sentences += sent_tokenize(text)
+            #except:
+            #    sentences += text.split(". ")  # Notice the space after the dot
+                sentences.append(sent)
         return sentences
 
     def computePositions(self, snippets):

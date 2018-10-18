@@ -33,6 +33,10 @@ class SoftMMR(BiRanker):
         # class method from abstract class that tokenizes all the snippets to sentences.
         similarity = SimilarityJaccard()
         sentences = self.getSentences(question)
+
+        dict_token_holder = dict()
+        for sentence in sentences:
+            tokens = splitter.tokenize_sentence(sentence)
         for i in range(self.numSelectedSentences):
             best_sim = -99999999
             for sentence in sentences:
